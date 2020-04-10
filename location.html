@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    alert(latitude+"     "+longitude);
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "https://us1.locationiq.com/v1/reverse.php?key=dcf7f05aeafae5&lat="+latitude+"&lon="+longitude+"&format=json",
+	  "method": "GET"
+	}
+
+	$.ajax(settings).done(function (response) {
+	  console.log(response);
+	  alert(response);
+	});
+
+}
+</script>
+
+</body>
+</html>
